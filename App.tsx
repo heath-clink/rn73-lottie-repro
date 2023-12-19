@@ -27,8 +27,6 @@ import {
 
 import LottieView from 'lottie-react-native';
 
-//const lottieLogo = require('./LottieLogo1.json');
-
 type SectionProps = PropsWithChildren<{
   title: string;
 }>;
@@ -66,6 +64,11 @@ function App(): React.JSX.Element {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
 
+  const [lottieSrc, setLottieSrc] = React.useState('');
+  // Workaround for: https://github.com/lottie-react-native/lottie-react-native/issues/1092#issuecomment-1684559456
+  // Set the actual source after initial render.
+  React.useEffect(() => setLottieSrc(require('./LottieLogo.json')), []);
+
   return (
     <SafeAreaView style={backgroundStyle}>
       <StatusBar
@@ -80,6 +83,16 @@ function App(): React.JSX.Element {
           style={{
             backgroundColor: isDarkMode ? Colors.black : Colors.white,
           }}>
+          <Section title="Lottie Test">
+          <View style={{flex: 1}}>
+            <LottieView
+                source={lottieSrc}
+                style={{width: 200, height: 200}}
+                autoPlay={true}
+                loop={true}
+                />
+            </View>
+          </Section>
           <Section title="Step One">
             Edit <Text style={styles.highlight}>App.tsx</Text> to change this
             screen and then come back to see your edits.
@@ -94,16 +107,6 @@ function App(): React.JSX.Element {
             Read the docs to discover what to do next:
           </Section>
           <LearnMoreLinks />
-          <Section title="Lottie Test">
-          <View style={{flex: 1}}>
-            <LottieView
-                source={require('./LottieLogo1.json')}
-                style={{width: 200, height: 200}}
-                autoPlay={true}
-                loop={true}
-                />
-            </View>
-          </Section>
         </View>
       </ScrollView>
     </SafeAreaView>

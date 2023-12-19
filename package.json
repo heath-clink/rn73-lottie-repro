@@ -9,12 +9,17 @@
     "start": "react-native start",
     "test": "jest",
     "pod-legacy": "cd ios && bundle install && bundle exec pod install",
-    "pod-fabric": "cd ios && bundle install && RCT_NEW_ARCH_ENABLED=1 bundle exec pod install"
+    "pod-fabric": "cd ios && bundle install && NO_FLIPPER=1 RCT_NEW_ARCH_ENABLED=1 bundle exec pod install",
+    "pod-fabric-static": "cd ios && bundle install && NO_FLIPPER=1 USE_FRAMEWORKS=static RCT_NEW_ARCH_ENABLED=1 bundle exec pod install",
+    "pod-fabric-dynamic": "cd ios && bundle install && NO_FLIPPER=1 USE_FRAMEWORKS=dynamic RCT_NEW_ARCH_ENABLED=1 bundle exec pod install",
+    "postinstall": "patch-package"
   },
   "dependencies": {
     "lottie-react-native": "^6.4.1",
+    "patch-package": "^8.0.0",
+    "postinstall-postinstall": "^2.1.0",
     "react": "18.2.0",
-    "react-native": "0.73.0"
+    "react-native": "^0.73.1"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
